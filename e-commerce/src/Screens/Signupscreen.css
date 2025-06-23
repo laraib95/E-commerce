@@ -1,0 +1,48 @@
+/* Common styles */
+.login-wrapper {
+  background: linear-gradient(180deg, #decc2f, #FFC371 60%);
+  padding: 30px;
+  border-radius: 10px;
+  /* width: 500px;  */
+  margin: auto;
+  /* margin: 2px 0px; */
+  margin-top: 8px;
+  margin-bottom: 8px;
+  text-align: center;
+  height: 550px;
+}
+
+.emailpassword {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  background-color: transparent;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  font-weight: 200;
+}
+
+.formbuttons button {
+  padding: 10px;
+  margin-top: 20px;
+  width: 50%;
+  text-align: start;
+  height: auto;
+  /* background-color: #daaa32; */
+  color: black;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.error-text {
+  color: red;
+  font-weight: bold;
+}
+

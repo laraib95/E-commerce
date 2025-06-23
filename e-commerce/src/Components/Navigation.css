@@ -1,0 +1,78 @@
+.header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: linear-gradient(180deg, #e1f737, #edb15c 60%);
+}
+
+.logoname {
+    display: flex;
+    gap: 50px;
+}
+
+.logoname .logo {
+    border-top-right-radius: 10px;
+    mix-blend-mode: darken;
+
+}
+
+.logoname h1 {
+    font-family: monospace;
+    color: white;
+    font-weight: 800;
+    margin: 0px;
+    text-wrap: nowrap;
+}
+.nav{
+    display: flex;
+    gap: 20px;
+}
+.Navigationbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.Navigationbar ul {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.Navigationbar ul li {
+    list-style-type: none;
+}
+
+.Navigationbar li a {
+    text-decoration: none;
+    font-family: monospace;
+    color: whitesmoke;
+    font-weight: 600;
+    text-wrap: nowrap;
+    cursor: pointer;
+}
+
+.Navigationbar li:hover {
+    transform: scale(1.1);
+}
+.icons{
+    display: flex;
+    align-items: center;
+}
+.loginbutton button{
+    border: none;
+    border-radius: 10px;
+    box-shadow: 5px 5px gray;
+    background: linear-gradient(90deg, #696969, #f0f8ff 40%);
+    color: black;
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.loginbutton:hover {
+    transform: scale(1.1);
+}
+
