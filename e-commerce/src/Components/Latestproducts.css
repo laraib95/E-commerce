@@ -1,0 +1,118 @@
+.latestprod {
+    background: linear-gradient(180deg, #decc2f, #FFC371 60%);
+    width: 100%;
+    /* height: auto; */
+    align-items: center;
+    justify-content: center;
+    /* height: 500px; */
+    overflow: scroll;
+    margin: 0;
+    padding: 0;
+
+}
+
+h1 {
+    color: rgb(0, 0, 0);
+    font-weight: 800;
+    text-shadow: 15px 5px 15px black;
+    text-wrap: nowrap;
+}
+
+.latesttop {
+    display: flex;
+}
+.latesttop button{
+     background-color: transparent;
+    color: #ffffff; /* White text for dark/image backgrounds */
+    border: 2px solid #ffffff; /* White border */
+    box-shadow: none;
+}
+.latesttop button:hover{
+background-color: rgba(255, 255, 255, 0.15); /* Slight white overlay on hover */
+    border-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.latesttop button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.latesttop button:active {
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: translateY(0);
+    box-shadow: none;
+}
+/* .latesttop button {
+    width: 250px;
+    height: 35px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 5px;
+    text-wrap: nowrap;
+    box-shadow: 5px 5px gray;
+    background: linear-gradient(180deg, #e4d023, #f0af55 60%);
+    color: black;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.latesttop button:hover {
+    transform: scale(1.1);
+} */
+
+.product-cards-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    padding-left: 2px;
+    /* max-width: 90%; */
+    box-sizing: border-box;
+    /* height: 550px; */
+    /* overflow: hidden; */
+}
+
+.product-card-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* width: 400px; */
+    /* height: 300px; */
+    box-sizing: border-box;
+}
+
+.product-card-item:hover {
+    box-shadow: 5px 5px 5px grey;
+}
+
+h3 {
+    /* font-size: 12px; */
+    /* height: 60px; */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* width: 150px; */
+}
+
+.productimage {
+    background: transparent;
+    height: 200px;
+    width: 150px;
+}
+.productimage img{
+    background: transparent;
+    height: 200px;
+    width: 150px;
+}
