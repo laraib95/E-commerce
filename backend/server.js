@@ -15,16 +15,18 @@ const authRoutes = require('./routes/authRoutes');  //uses defined routes
 const cartRoutes = require('./routes/cartRoutes');
 const ProfileRoutes = require('./routes/ProfileRoutes');
 const productRoutes = require('./routes/productRoutes')
+const UserRoutes = require('./routes/UserRoutes')
 
 //setting up global Middleware (cors & express.json)
 app.use(cors());
 app.use(express.json());              //Parse for JSON bodies
 
 //Routes
-app.use('/api',authRoutes);          //all routes in authRoutes.js now starts with /api
-app.use('/api/',cartRoutes);
-app.use('/api', ProfileRoutes);
+app.use('/api/v1',authRoutes);          //all routes in authRoutes.js now starts with /api
+app.use('/api/v1',cartRoutes);
+app.use('/api/v1', ProfileRoutes);
 app.use('/api/v1', productRoutes);
+app.use('/api/v1',UserRoutes);
 
 //DB and Server start
 connectDB();

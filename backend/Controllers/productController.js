@@ -8,8 +8,6 @@ const fs = require('fs'); // Node.js built-in for file system operations
 //.....Admin Access Only.......
 
 // Create new product => /api/v1/admin/product/new
-// Create new product => /api/v1/admin/product/new
-// Create new product => /api/v1/admin/product/new
 exports.newProduct = catchAsyncErrors(async (req, res, next) => {
     console.log('DEBUG: 1. Entered newProduct controller.');
     console.log('DEBUG: Request Body (text fields):', req.body);

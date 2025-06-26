@@ -37,7 +37,7 @@ function ProfileScreen() {
             setSuccess("");
 
             try {
-                const res = await fetch("http://localhost:5000/api/profile", {
+                const res = await fetch("http://localhost:5000/api/v1/profile", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ function ProfileScreen() {
         }
 
         try {
-            const res = await fetch('http://localhost:5000/api/profile', {
+            const res = await fetch('http://localhost:5000/api/v1/profile', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

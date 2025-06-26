@@ -1,49 +1,114 @@
-const User = require('../models/User');        // import User model
+const catchAsyncErrors = require("../Middlewares/catchAsyncErrors");
+const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const ErrorHandler = require("../utils/errorHandler");
 
-//get the profile of logged-in user
-exports.viewUserProfile = async (req, res) => {
-    try {
-        //req.user.id comes from the verifyToken middleware
-        //(User.findById(req.user.id) : will find the user by user_id in db)
-        //select(-password): - is a mongoose projection operator. it means to exclude that field
-        const user = await User.findById(req.user.id).select('-password'); //-password to exclude password hash
-        if (!user) { return res.status(400).json({ message: "User not Found" }) };
-        res.status(200).json(user);
-    } catch (error) {
-        console.error("Error fetching user profile", error);
-        return res.status(500).json({ message: 'Server Error' });
+
+//create newUser => '/api/admin/users/new
+exports.createUserByAdmin = catchAsyncErrors(async(req,res,next)=> {
+    console.log("DEBUG: Entered createUserByAdmin function");
+    const {name,email,mobilenumber,age,password,role} = req.body;
+    console.log("DEBUG: Request Body for create:", req.body);
+
+    if(!name || !password || !email)
+    {
+        console.log("DEBUG: Required fields for creating account");
+        return next(new ErrorHandler("Fields are required",400))
     }
-};
-
-exports.updateUserProfile = async (req, res) => {
-    const { name, email, password, mobilenumber, age } = req.body;
-    const userId = req.user.id;             //User ID from authenticated token
-    try {
-        const user = await User.findById(userId);
-        if (!user) { return res.status(401).json({ message: 'User not found' }) }
-        user.name = name || user.name
-        user.mobilenumber = mobilenumber || user.mobilenumber;
-        user.age = age || user.age;
-
-        //handling email updation
-        //check if email is provided and different
-        if (email && email !== user.email) {
-            //now check if updated email is already existing
-            const emailmatch = await User.findOne({ email })
-            if (emailmatch && emailmatch._id.toString() !== userId) { return res.status(400).json({ message: 'Email already registered' }) }
-            user.email = email;
-        }
-        //handle password update if a new updated password is provided
-        if (password) {
-            user.password = await bcrypt.hash(password, 10);
-        }
-        await user.save();
-
-         const updatedUser = await User.findById(userId).select('-password');
-        res.status(200).json({ message: 'Profile updated successfully', user: updatedUser });
-    } catch (error) {
-        console.error("Error Updating User Profile",error)
-        res.status(500).json({message : "Server Error"});
+    const userExists = await User.findOne({email});
+    if(userExists) {
+        console.log("DEBUG: Email already exists for create")
+        return next(new ErrorHandler("Email has taken already",400))
     }
-};
+    console.log("DEBUG: Attempting to create user ....");
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+        age,
+        mobilenumber,
+        role,
+    });
+    console.log("DEBUG: new user created successfuly: ", newUser);
+
+    res.status(201).json({
+        success: true,
+        message:"User Created successfully",
+        user:{
+            _id : newUser._id,
+            name: newUser.name,
+            email : newUser.email,
+            mobilenumber : newUser.mobilenumber,
+            age : newUser.age,
+            role : newUser.role,
+            created_at : newUser.createdAt, 
+        },
+    });
+    console.log("DEBUG: createdUserByAdmin response sent.");
+});
+
+
+//Get all Users => '/api/admin/Users
+exports.getAllUsers = catchAsyncErrors(async(req,res,next) => {
+    const users = await User.find().select('-password');
+
+    res.status(200).json({
+        success: true,
+        users,
+    })
+})
+
+//Get single user by id => '/api/admin/users/:id
+exports.getSingleUser = catchAsyncErrors(async (req,res,next)=>{
+    const user = await User.findById(req.params.id).select('-password');
+    res.status(200).json({
+        success: true,
+        user,
+    });
+});
+
+//update the user => '/api/admin/users/:id
+exports.updateUser = catchAsyncErrors(async(req,res,next)=>{
+    const {name,email,age,mobilenumber} = req.body;
+    let user = await User.findById(req.params.id);
+    if(!user)
+    { return next(new ErrorHandler(`User not found with this id : ${req.params.id}`,400))}
+    user.name = name !== undefined ? name : user.name;
+    user.email = email !== undefined ? email : user.email;
+    user.mobilenumber = mobilenumber !== undefined ? mobilenumber : user.mobilenumber;
+    user.age = age !== undefined ? age : user.age;
+
+    const updatedUser = await user.save();
+    res.status(200).json({
+        success:true,
+        user: {
+             _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            createdAt: updatedUser.createdAt,
+            updatedAt: updatedUser.updatedAt,
+        },
+    });
+});
+
+//delet the user => '/api/admin/user/delet/:_id
+exports.deleteUser = catchAsyncErrors(async(req,res,next)=>{
+        // 1. Find the user by ID from request parameters
+    const user = await User.findById(req.params.id);
+
+        // 2. Handle if user is not found
+    if(!user)
+    { return next(new ErrorHandler(`User not found with id: ${req.params.id}`,400))}
+    
+        // 3. Delete the user
+    await User.deleteOne();
+
+        // 4. Send success response
+    res.status(200).json({
+        success: true,
+        message : "User deleted successfully.",
+    });
+});
+

@@ -48,7 +48,7 @@ function Signupscreen() {
         //API POST request to your backend
         try {
             const response = await
-                fetch("http://localhost:5000/api/register", {     //calling an API endpoint defined in (backend) auth.js file
+                fetch("http://localhost:5000/api/v1/register", {     //calling an API endpoint defined in (backend) auth.js file
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json",

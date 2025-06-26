@@ -15,6 +15,8 @@ import AdminProtectedRoute from './Admin/AdminProtectedRoute.js';
 import AdminDashboard from './Admin/AdminDashboard.js';
 import AdminProductList from "./Admin/AdminProductList.js";
 import ProductForm from "./ProductForm";
+import AdminUserListScreen from "./Admin/AdminUserListScreen.js";
+import UserFormScreen from "./Admin/UserFormScreen.js";
  
 function AppContent() {
   return (
@@ -48,10 +50,14 @@ function AppContent() {
         {/* Admin Protected Routes */}
         <Route element={<AdminProtectedRoute />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/products" element={<AdminProductList />} />
+          <Route path="/admin/products" element={<AdminProductList />} /> {/* for viewing all products*/}
           <Route path="/admin/product/new" element={<ProductForm />} /> {/* For adding new products */}
           <Route path="/admin/product/edit/:id" element={<ProductForm />} /> {/* For editing existing products */}
           
+          <Route path='/admin/users' element={<AdminUserListScreen/>} />  {/* For viewing all users */}
+          <Route path='/admin/users/create' element={<UserFormScreen/>}/>
+          <Route path='/admin/users/:id/edit' element={<UserFormScreen/>}/>
+      
         </Route>
       </Routes >
       <Footer />

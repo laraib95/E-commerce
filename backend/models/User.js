@@ -19,12 +19,10 @@ const userSchema = new mongoose.Schema({
     },
     mobilenumber: {
         type : String,
-        required: true,
         match : /^0\d{10}$/
     },
     age : {
         type : Number,
-        required: true
     },
     role : {
         type : String,

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import './adminProductList.css'; // Create this CSS file
+import './adminProductList.css'; 
 
 function AdminProductList() {
     const [products, setProducts] = useState([]);
