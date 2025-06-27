@@ -1,43 +1,82 @@
-import products from "./Productdata"; // Imports the 'products' array from Productdata.js, containing product information
-import { useNavigate } from "react-router-dom"; // Imports the useNavigate hook for programmatic navigation
-import './Productcard.css'; // Imports the CSS file for styling the Productcard component
-import { useDispatch } from "react-redux";
-import { addToCart, incrementTotalPurchases } from '../Redux/cartSlice';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addItemToCartBackend } from '../Redux/CartSlice'; // Assuming you have this async thunk for backend cart
+import './ProductCard.css'; // Assuming you have CSS for this
+
+const API_BASE_URL = 'http://localhost:5000/api/v1'; // Your backend API base URL
 
 function Productcard() {
-    const navigate = useNavigate(); // Initializes the navigate function
-    const dispatch =  useDispatch();
-    // Destructures addToCart and incrementTotalPurchases functions from the useCart hook
-    // const cartItems = useSelector((state) => state.cart.items);
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    // Handler for the "Buy Now" action
-    const handleBuyNow = (product) => {
-        dispatch(addToCart(product));
-        alert('Thanks for your purchase!'); // Displays a confirmation alert
-        dispatch(incrementTotalPurchases()); // Increments the total number of purchases in the cart context
-        navigate('/Cartscreen'); // Navigates the user to the cart screen
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`${API_BASE_URL}/products`);
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                setProducts(data.products);
+                setLoading(false);
+            } catch (err) {
+                console.error("Error fetching products:", err);
+                setError(err.message || "Failed to load products.");
+                setLoading(false);
+            }
+        };
+        fetchProducts();
+    }, []);
+
+    const handleAddToCart = (productId) => {
+        // You'll need to check if user is logged in here or in cartSlice thunk
+        dispatch(addItemToCartBackend({ productId, quantity: 1 }))
+            .unwrap()
+            .then(() => {
+                alert('Product added to cart!');
+            })
+            .catch((err) => {
+                alert(`Failed to add to cart: ${err}`);
+                console.error("Add to cart error:", err);
+            });
     };
 
+    if (loading) {
+        return <div className="products-loading">Loading products...</div>;
+    }
+
+    if (error) {
+        return <div className="products-error">Error: {error}</div>;
+    }
+
     return (
-        <div className="maingrid"> {/* Main container for the product grid */}
-            {/* Maps over the 'products' array to render each product as a card */}
-            {products.map((product) => (
-                <div key={product.id} className="product_grid"> {/* Individual product card container, with a unique key */}
-                    <img src={product.image} alt={product.name} className="productimage" /> {/* Product image */}
-                    <h3>{product.name}</h3> {/* Product name */}
-                    <p>{product.price}</p> {/* Product price */}
-                    <div className="overlay"> {/* Overlay containing action buttons */}
-                        {/* Button to navigate to the product detail page when clicked */}
-                        <button className="buy-now" onClick={() => navigate(`/product/${product.id}`)}>Details</button>
-                        {/* Button to add the product to the cart and then trigger the handleBuyNow function */}
-                        <button className="buy-now" onClick={() => {
-                            handleBuyNow(product); // Calls the handleBuyNow function to show alert and navigate
-                        }}
-                        >Buy Now</button>
+        <div className="maingrid">
+            <div className='back-button'>
+                <button onClick={() => navigate(-1)}>← Back</button>
+            </div>
+            {products.map(product => (
+                <div key={product._id} className="product_grid"> {/* Use product._id */}
+                    {product.images && product.images.length > 0 && (
+                        <img src={product.images[0].url} alt={product.name} className="productimage" />
+                    )}
+                    <h3>{product.name}</h3>
+                    <p>${product.price.toFixed(2)}</p> {/* Format price */}
+                    <div className="overlay">
+                        <button className="buy-now" onClick={() => navigate(`/product/${product._id}`)}>Details</button> {/* Use product._id */}
+                        <button className="buy-now" onClick={() => handleAddToCart(product._id)}>Add to Cart</button> {/* Optional: Add to Cart button */}
                     </div>
                 </div>
             ))}
         </div>
     );
-};
-export default Productcard; // Exports the Productcard component as the default export
+}
+
+export default Productcard;

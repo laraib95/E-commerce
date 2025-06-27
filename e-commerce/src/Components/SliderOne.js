@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Images from './Sliderdata';
+import Images from './SliderData';
 import './SliderOne.css'
 
 function SliderOne() {

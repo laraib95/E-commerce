@@ -1,5 +1,5 @@
 // import "./Homescreen.css" // Imports the CSS file for styling the Homescreen component
-import Latestproducts from "../Components/Latestproducts"; // Imports the Latestproducts component
+import Latestproducts from "../Components/LatestProducts"; // Imports the Latestproducts component
 import salesimage from "../Images/sale-items.jpg"; // Imports the sales image
 import { useNavigate } from 'react-router-dom'; // Imports the useNavigate hook for programmatic navigation
 import { useMediaQuery } from 'react-responsive';

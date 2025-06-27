@@ -5,11 +5,11 @@ import { useMediaQuery } from 'react-responsive';
 import logo from "../Images/logo.jpeg";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { clearCart } from "../Redux/cartSlice";
+import { clearCart } from "../Redux/CartSlice";
 import CartDrawer from './CartDrawer';
 // Redux imports
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../Redux/authSlice';
+import { logout } from '../Redux/AuthSlice';
 
 function Navigation() {
         const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);

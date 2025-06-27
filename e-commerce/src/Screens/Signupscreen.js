@@ -1,7 +1,7 @@
 import React, { useState } from "react";            //usestate to manage form inputs
 import { useNavigate } from "react-router-dom";     //to navigate after success
 import { useMediaQuery } from 'react-responsive';
-import './Signupscreen.css';
+import './SignupScreen.css';
 
 function Signupscreen() {
     const [name, setname] = useState("");

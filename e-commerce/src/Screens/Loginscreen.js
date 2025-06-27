@@ -2,12 +2,12 @@
 // import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { useState } from "react"; // Imports React and the useState hook for managing component state
 // import googlelogo from '../Images/googleicon.png' // Imports the Google logo image
-import './Loginscreen.css'; // Imports the CSS file for styling the LoginScreen component
+import './LoginScreen.css'; // Imports the CSS file for styling the LoginScreen component
 import { useNavigate } from "react-router-dom";
 
 //Redux Imports
 
-import { loginSuccess } from '../Redux/authSlice';
+import { loginSuccess } from '../Redux/AuthSlice';
 import { useDispatch } from 'react-redux';
 
 function LoginScreen() {

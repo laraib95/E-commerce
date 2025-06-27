@@ -1,8 +1,8 @@
 import './ProfileScreen.css';
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateSuccess, logout } from '../Redux/authSlice'; // Import logout for token expiry handling
-import { clearCart } from '../Redux/cartSlice'; // Assuming you clear cart on logout
+import { updateSuccess, logout } from '../Redux/AuthSlice'; // Import logout for token expiry handling
+import { clearCart } from '../Redux/CartSlice'; // Assuming you clear cart on logout
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirects
 
 function ProfileScreen() {

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const {getProducts, getSingleProduct, newProduct, updateProduct, deleteProduct,} = require('../Controllers/productController');
+const {getProducts, getSingleProduct, newProduct, updateProduct, deleteProduct,} = require('../Controllers/ProductController');
 
 // Import the authentication and authorization middleware
 const { verifyToken, authorizeRoles } = require('../Middlewares/authMiddleware');

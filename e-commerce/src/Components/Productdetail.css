@@ -1,139 +1,88 @@
-.main {
-    background: linear-gradient(180deg, #decc2f, #FFC371 60%);
-    margin: 10px;
-}
-
-button {
-    width: 40%;
-    height: 50px;
-    font-size: 1.2em;
-    font-weight: 600;
-    margin: 15px;
-    outline: none;
-    border: none;
-    color: #333;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-button:hover {
-    background: linear-gradient(180deg, #dbc925, #f3b053 60%);
-    box-shadow: 2px 2px 2px grey;
-    border: 3px solid #333;
-    border-radius: 12px;
-}
-
+/* Existing .container might need adjustments, or keep it as is */
 .container {
-    display: flex;
-    max-width: 1000vh;
-    box-sizing: border-box;
-    gap: 30px;
+    display: flex; /* Makes image gallery and text side-by-side */
+    gap: 20px; /* Space between image gallery and text */
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+    justify-content: center; /* Center items when wrapped */
+    padding: 20px;
 }
 
-img {
-    width: 40%;
-    height: 600px;
-    margin: 20px;
-    padding: 3px;
+.image-gallery {
     display: flex;
-    box-sizing: border-box;
+    flex-direction: column; /* Stack main image and thumbnails vertically */
+    align-items: center; /* Center items horizontally within the gallery */
+    width: 100%; /* Take full width of parent on small screens */
+    max-width: 500px; /* Max width for the image gallery section */
 }
 
+.main-image-display img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px; /* Space between main image and thumbnails */
+}
+
+.thumbnail-list {
+    display: flex;
+    flex-wrap: wrap; /* Allows thumbnails to wrap to the next line */
+    gap: 10px; /* Space between thumbnails */
+    justify-content: center; /* Center thumbnails */
+    width: 100%;
+}
+
+.thumbnail-item {
+    width: 80px; /* Small fixed width for thumbnails */
+    height: 80px; /* Small fixed height for thumbnails */
+    object-fit: cover; /* Ensures image covers the area without distortion */
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition for hover/active states */
+}
+
+.thumbnail-item:hover {
+    border-color: #007bff; /* Highlight on hover */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.thumbnail-item.active {
+    border-color: #0056b3; /* Stronger highlight for the active thumbnail */
+    box-shadow: 0 0 8px rgba(0, 86, 179, 0.7);
+    transform: scale(1.05); /* Slightly enlarge active thumbnail */
+}
+
+/* Adjust .text section if necessary to fit alongside the gallery */
 .text {
-    width: 60%;
-    line-height: 2.2em;
-    margin: 4px;
+    flex: 1; /* Allows the text section to take remaining space */
+    min-width: 300px; /* Minimum width before wrapping */
+    padding: 10px;
 }
 
-@media (min-width: 768px) and (max-width:1024px) {
-    .main {
-        width: 100%;
-        margin: 0px;
-        padding: 0px;
+/* Optional: For larger screens, arrange side-by-side */
+@media (min-width: 768px) {
+    .image-gallery {
+        flex-direction: row; /* Thumbnails on the side */
+        align-items: flex-start; /* Align main image and thumbs to top */
+        max-width: unset; /* Remove max-width for gallery on larger screens */
+        width: auto;
     }
 
-    button {
-        width: 15%;
-        height: auto;
-        font-size: 10px;
-        padding: 0px;
-        margin-top: 2px 0px;
+    .main-image-display {
+        flex-shrink: 0; /* Don't shrink the main image area */
+        margin-right: 20px; /* Space between main image and thumbnails */
     }
 
-    .container {
-        display: flex;
-        width: 100%;
-        box-sizing: border-box;
-        gap: 2px;
-        margin: 0px;
-        padding: 0px;
+    .thumbnail-list {
+        flex-direction: column; /* Stack thumbnails vertically */
+        justify-content: flex-start; /* Align thumbnails to the top */
+        width: auto; /* Allow width to be determined by content */
+        max-height: 400px; /* Or a suitable height */
+        overflow-y: auto; /* Scroll if many thumbnails */
     }
-    img {
-        width: 35%;
-        height: 200px;
-        margin: 0px;
-        padding: 2px;
-        margin-top: 2px;
-        /* display: flex; */
-        box-sizing: border-box;
-    }
-    .text {
-        width: 70%;
-        height: auto;
-        line-height: 15px;
-        margin-bottom: 5px;
-    }
-    .text h1{
-        font-size: 15px;
-    }
-    .text p,h2{
-        font-size: 10px;
-        gap: 1px;
-    }
-}
-@media (max-width:767px){
-        .main {
-        width: 100%;
-        margin: 0px;
-        padding: 0px;
-    }
-
-    button {
-        width: 30%;
-        height: auto;
-        font-size: 8px;
-        padding: 0px;
-        margin: 2px 0px;
-    }
-
-    .container {
-        display: flex;
-        width: 100%;
-        box-sizing: border-box;
-        gap: 5px;
-        margin: 0px;
-        padding: 0px;
-    }
-    img {
-        width: 30%;
-        height: 150px;
-        margin: 0px;
-        padding: 1px;
-        margin-top: 8px;
-        /* display: flex; */
-        box-sizing: border-box;
-    }
-    .text {
-        width: 50%;
-        height: auto;
-        line-height: 12px;
-        margin-bottom: 3px;
-    }
-    .text h1{
-        font-size: 12px;
-    }
-    .text p,h2{
-        font-size: 8px;
-        gap: 1px;
+    
+    .thumbnail-item {
+        width: 60px; /* Adjust thumbnail size for vertical stack */
+        height: 60px;
     }
 }

@@ -1,9 +1,9 @@
 // configuring Redux Store
 import { configureStore } from "@reduxjs/toolkit";      //using configureStore to setup the redux store
-import authReducer from './authSlice';
-import cartReducer from './cartSlice'; 
+import authReducer from './AuthSlice';
+import cartReducer from './CartSlice'; 
 
-export const store = configureStore({
+export const Store = configureStore({
     reducer:{
         auth : authReducer,   
         cart: cartReducer,

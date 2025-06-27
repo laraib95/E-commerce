@@ -4,7 +4,7 @@ const productSchema = new mongoose.Schema ({
     name :{
         type: String,
         trim : true,
-        require: true,
+        required: true,
         maxLength : [100,"Product name can't exceed 100 characters"],
     },
     description: {
@@ -13,24 +13,24 @@ const productSchema = new mongoose.Schema ({
     },
     price : {
         type: Number,
-        require: true,
-        maxLength: 8,
+        required: true,
+        min: [0, "Price cannot be negative"],
     },
     images : [
         {
             public_id: {
                 type: String,
-                require: true,
+                required: true,
             },
             url: {
                 type: String,
-                reuire: true,
+                required: true,
             },
         }
     ],
     category: {
         type: String,
-        reuire: true,
+        reqired: true,
         enum: {
             values:[
                 'Cameras',
@@ -44,12 +44,11 @@ const productSchema = new mongoose.Schema ({
     },
     seller: {
         type: String,
-        require: true,
+        required: true,
     },
     stock: {
         type: Number,
-        require: true,
-        maxLength: 5,
+        required: true,
         default: 0,
     },
     // User who created this product (admin) - useful for tracking
@@ -58,6 +57,9 @@ const productSchema = new mongoose.Schema ({
         ref: 'User',
         required: true
     },
+    // Mongoose will automatically add createdAt and updatedAt fields
+}, {
+    timestamps: true // This adds createdAt and updatedAt fields
 });
 
 module.exports = mongoose.model('Product', productSchema);

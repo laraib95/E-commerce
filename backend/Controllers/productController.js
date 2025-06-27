@@ -17,8 +17,8 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 
     // Ensure Multer has successfully processed files
     if (!req.files || req.files.length === 0) {
-        
         console.log('DEBUG: No files found in req.files.');
+        return next(new ErrorHandler('At least one image is required for the product', 400));
         
     } else {
         console.log('DEBUG: 2. Files detected. Proceeding to upload to Cloudinary.');
@@ -174,7 +174,7 @@ exports.getProducts = catchAsyncErrors(async(req,res,next)=> {
     });
 })
 //get single product details => /api/v1/products/:id
-exports.getSingleProduct = catchAsyncErrors(async(req,res,next)=>{
+exports.getSingleProduct = catchAsyncErrors(async (req,res,next)=>{
     const product = await Product.findById(req.params.id);
     if(!product){
         return next(new ErrorHandler('Product Not Found',404))

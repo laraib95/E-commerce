@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";   //Imports components for routing : Route for defining individual routes, and Routes for wrapping multiple Route components
-import Homescreen from '../Screens/Homescreen.js'; 
-import Products from './Productcard'; 
-import Cartscreen from "../Screens/Cartscreen"; 
+import HomeScreen from '../Screens/HomeScreen.js'; 
+import Products from './ProductCard.js'; 
+import CartScreen from "../Screens/CartScreen.js"; 
 import ProfileScreen from '../Screens/ProfileScreen.js';
 import Navigation from './Navigation'; 
-import LoginScreen from '../Screens/Loginscreen'; 
-import Signup from '../Screens/Signupscreen';  
-import ProductDetail from './Productdetail';  
+import LoginScreen from '../Screens/LoginScreen.js'; 
+import Signup from '../Screens/SignupScreen';  
+import ProductDetail from './ProductDetail.js';  
 import Footer from './Footer'; 
 import ProtectedRoute from './ProtectedRoute';
 import CartDrawer from './CartDrawer';
@@ -24,15 +24,15 @@ function AppContent() {
       <Navigation />
       <Routes>
         <Route path="/Login" element={<LoginScreen />} />
-        <Route path='/Signupscreen' element={<Signup />} />
-        <Route path="/" element={<Homescreen />} />
+        <Route path='/SignupScreen' element={<Signup />} />
+        <Route path="/" element={<HomeScreen />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/Productcard" element={<Products />} />
         <Route
           path="/Cartscreen"
           element={
             <ProtectedRoute>
-              <Cartscreen />
+              <CartScreen />
             </ProtectedRoute>} />
             <Route
           path="/cartdrawer"
